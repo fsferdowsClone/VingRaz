@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "A clothing item in the store",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string", "enum": ["men", "women", "kids", "accessories"] },
+        "subCategory": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "sizes": { "type": "array", "items": { "type": "string" } },
+        "colors": { "type": "array", "items": { "type": "string" } },
+        "inventoryCount": { "type": "number" },
+        "isFeatured": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "category", "images", "inventoryCount"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "items": { 
+          "type": "array", 
+          "items": {
+            "type": "object",
+            "properties": {
+              "productId": { "type": "string" },
+              "quantity": { "type": "number" },
+              "size": { "type": "string" },
+              "color": { "type": "string" },
+              "price": { "type": "number" }
+            }
+          }
+        },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "processing", "shipped", "delivered", "cancelled"] },
+        "shippingAddress": {
+          "type": "object",
+          "properties": {
+            "fullName": { "type": "string" },
+            "address": { "type": "string" },
+            "city": { "type": "string" },
+            "postalCode": { "type": "string" },
+            "phoneNumber": { "type": "string" }
+          }
+        },
+        "paymentMethod": { "type": "string" },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid", "failed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A customer review for a product",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["productId", "userId", "rating", "comment"]
+    }
+  },
+  "firestore": {
+    "products": {
+      "schema": "Product",
+      "description": "Collection of all products"
+    },
+    "orders": {
+      "schema": "Order",
+      "description": "Collection of customer orders"
+    },
+    "users": {
+      "schema": "User",
+      "description": "User profiles and metadata"
+    },
+    "reviews": {
+      "schema": "Review",
+      "description": "Product reviews"
+    }
+  }
+}
