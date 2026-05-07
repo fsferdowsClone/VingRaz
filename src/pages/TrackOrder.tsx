@@ -23,17 +23,26 @@ export default function TrackOrder() {
           courier: 'FedEx Priority Global',
           trackingNumber: '7845-9231-1044',
           estimatedDelivery: 'May 14, 2026',
+          shippingAddress: {
+            name: 'Julian Thorne',
+            street: '127 Avenue Montaigne',
+            city: 'Paris',
+            postalCode: '75008',
+            country: 'France',
+            phone: '+33 1 45 67 89 00'
+          },
           items: [
             { name: 'Merino Wool Turtleneck', quantity: 1, price: 4800 },
             { name: 'Silk Pocket Square', quantity: 2, price: 4500 }
           ],
           timeline: [
-            { status: 'Order Placed', date: 'May 01, 2026, 14:30', completed: true },
-            { status: 'Processed & Inspected', date: 'May 02, 2026, 09:15', completed: true },
-            { status: 'Departed Warehouse', date: 'May 03, 2026, 11:00', completed: true },
-            { status: 'In Transit', date: 'May 04, 2026, 16:45', completed: false, active: true },
-            { status: 'Out for Delivery', date: 'Pending', completed: false },
-            { status: 'Delivered', date: 'Exp. May 14', completed: false }
+            { status: 'Order Placed', location: 'Digital Atelier', date: 'May 01, 2026, 14:30', completed: true },
+            { status: 'Processed & Inspected', location: 'Dhaka Logistics Hub', date: 'May 02, 2026, 09:15', completed: true },
+            { status: 'Departed Warehouse', location: 'Hazrat Shahjalal Int. Airport', date: 'May 03, 2026, 11:00', completed: true },
+            { status: 'Arrived at Sorting Facility', location: 'Paris-Charles de Gaulle Airport', date: 'May 04, 2026, 08:30', completed: true },
+            { status: 'Customs Clearance Progress', location: 'Roissy, FR', date: 'May 04, 2026, 16:45', completed: false, active: true },
+            { status: 'Out for Delivery', location: 'Paris 8th Arr.', date: 'Pending', completed: false },
+            { status: 'Signature Obtained', location: 'Destination', date: 'Exp. May 14', completed: false }
           ]
         });
       } else {
@@ -148,6 +157,44 @@ export default function TrackOrder() {
                 </div>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white border border-luxury-charcoal/5 p-12 h-full">
+                  <h4 className="text-[10px] uppercase tracking-[0.3em] font-black text-luxury-charcoal/40 mb-10">Destination Manifest</h4>
+                  <address className="not-italic space-y-4">
+                    <p className="text-xl font-serif italic text-luxury-charcoal">{trackingData.shippingAddress.name}</p>
+                    <div className="text-xs font-black tracking-widest text-luxury-charcoal/60 space-y-1 uppercase">
+                      <p>{trackingData.shippingAddress.street}</p>
+                      <p>{trackingData.shippingAddress.postalCode} {trackingData.shippingAddress.city}</p>
+                      <p>{trackingData.shippingAddress.country}</p>
+                    </div>
+                    <p className="text-[10px] font-medium text-luxury-charcoal/30 pt-4 border-t border-luxury-charcoal/5">
+                      Contact: {trackingData.shippingAddress.phone}
+                    </p>
+                  </address>
+                </div>
+
+                <div className="bg-white border border-luxury-charcoal/5 p-12 h-full">
+                  <h4 className="text-[10px] uppercase tracking-[0.3em] font-black text-luxury-charcoal/40 mb-10">Selected Masterpieces</h4>
+                  <div className="space-y-6">
+                    {trackingData.items.map((item: any, idx: number) => (
+                      <div key={idx} className="flex justify-between items-start border-b border-luxury-charcoal/5 pb-6 last:border-0 last:pb-0">
+                        <div className="flex items-center space-x-6">
+                          <span className="text-lg font-serif italic text-luxury-charcoal/20">{idx + 1}.</span>
+                          <p className="text-sm font-serif italic">{item.name}</p>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-[9px] font-black tracking-widest text-luxury-charcoal/60 uppercase">x{item.quantity}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <div className="pt-6 mt-6 border-t border-luxury-charcoal/5 flex justify-between items-center">
+                       <span className="text-[10px] uppercase tracking-widest font-black text-luxury-charcoal/20">Shipment Weight</span>
+                       <span className="text-xs font-black">1.2 KG</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div className="bg-luxury-cream/10 border border-luxury-charcoal/5 p-12 md:p-20">
                 <h3 className="text-2xl font-serif mb-16 italic border-b border-luxury-charcoal/5 pb-8">Journey Progress</h3>
                 
@@ -158,7 +205,7 @@ export default function TrackOrder() {
                   {trackingData.timeline.map((step: any, index: number) => (
                     <div key={index} className="relative pl-12 group">
                       <div className={cn(
-                        "absolute left-0 top-1 w-8 h-8 rounded-full border-2 flex items-center justify-center z-10 transition-all duration-700",
+                        "absolute left-0 top-1 w-8 h-8 rounded-full border-2 flex items-center justify-center z-10 transition-all duration-1000",
                         step.completed ? "bg-luxury-gold border-luxury-gold text-white" : 
                         step.active ? "bg-white border-luxury-gold text-luxury-gold animate-pulse shadow-lg" : 
                         "bg-white border-luxury-charcoal/10 text-luxury-charcoal/20"
@@ -168,39 +215,29 @@ export default function TrackOrder() {
                          <Circle className="w-2 h-2 fill-current" />}
                       </div>
                       
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
+                      <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
+                        <div className="space-y-1">
                           <p className={cn(
-                            "text-lg font-serif italic transition-colors duration-500",
+                            "text-lg font-serif italic transition-colors duration-700",
                             step.completed || step.active ? "text-luxury-charcoal" : "text-luxury-charcoal/20"
                           )}>
                             {step.status}
                           </p>
+                          {step.location && (
+                            <p className={cn(
+                                "text-[9px] uppercase tracking-[0.2em] font-black",
+                                step.completed || step.active ? "text-luxury-charcoal/40" : "text-luxury-charcoal/10"
+                            )}>
+                                {step.location}
+                            </p>
+                          )}
                         </div>
                         <p className={cn(
-                          "text-[10px] uppercase tracking-[0.3em] font-black",
+                          "text-[10px] uppercase tracking-[0.3em] font-black pt-2",
                           step.completed || step.active ? "text-luxury-gold" : "text-luxury-charcoal/10"
                         )}>
                           {step.date}
                         </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="bg-white border border-luxury-charcoal/5 p-12">
-                <h4 className="text-[10px] uppercase tracking-[0.3em] font-black text-luxury-charcoal/40 mb-10 text-center">Selected Masterpieces In Shipment</h4>
-                <div className="space-y-8">
-                  {trackingData.items.map((item: any, idx: number) => (
-                    <div key={idx} className="flex justify-between items-center border-b border-luxury-charcoal/5 pb-8 last:border-0 last:pb-0">
-                      <div className="flex items-center space-x-8">
-                        <span className="text-xl font-serif italic text-luxury-charcoal/20">{idx + 1}.</span>
-                        <p className="text-lg font-serif italic">{item.name}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-[10px] uppercase tracking-widest font-black text-luxury-charcoal/20 mb-1">Quantity: {item.quantity}</p>
-                        <p className="text-sm font-black tracking-widest">{formatCurrency(item.price * item.quantity)}</p>
                       </div>
                     </div>
                   ))}

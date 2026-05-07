@@ -14,21 +14,21 @@ export default function Home() {
       title: "Art of Subtlety",
       italic: "Subtlety.",
       subtitle: "Explore the new VINGRAZ collection. Timeless designs crafted with uncompromising quality.",
-      image: "https://images.unsplash.com/photo-1539109132314-34a93a553f19?q=80&w=2670&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1490114538077-0a7f8cb498b1?q=80&w=2070&auto=format&fit=crop",
       badge: "Spring Summer 2026"
     },
     {
       title: "Defining Luxury",
       italic: "Modernity.",
       subtitle: "A fusion of traditional craftsmanship and contemporary silhouettes.",
-      image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2670&auto=format&fit=crop",
       badge: "Limited Edition"
     },
     {
       title: "Essential Pieces",
       italic: "Elegance.",
       subtitle: "Curated essentials for the refined wardrobe. Minimalist aesthetic, maximal quality.",
-      image: "https://images.unsplash.com/photo-1550246140-5119ae4790b8?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop",
       badge: "New Arrivals"
     }
   ];
@@ -69,25 +69,25 @@ export default function Home() {
     {
       id: 'women',
       name: 'Women',
-      image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2040&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1539109132314-34a93a553f19?q=80&w=2670&auto=format&fit=crop',
       description: 'Elegant essentials and statement pieces.'
     },
     {
       id: 'men',
       name: 'Men',
-      image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=2000&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1505022610485-0249ba5b3675?q=80&w=2070&auto=format&fit=crop',
       description: 'Refined classics for the modern man.'
     },
     {
       id: 'kids',
       name: 'Kids',
-      image: 'https://images.unsplash.com/photo-1444881421460-d838c3b98f95?q=80&w=2070&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?q=80&w=2030&auto=format&fit=crop',
       description: 'Sophisticated style for the little ones.'
     },
     {
       id: 'accessories',
       name: 'Accessories',
-      image: 'https://images.unsplash.com/photo-1584917663903-b77bb1f7c271?q=80&w=2070&auto=format&fit=crop',
+      image: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=2080&auto=format&fit=crop',
       description: 'The final touch for every look.'
     }
   ];

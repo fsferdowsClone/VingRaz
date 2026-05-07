@@ -151,18 +151,24 @@ export default function Navbar() {
 
         {/* Center: Brand */}
         <Link to="/" className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center group z-10">
-          <motion.span 
-            initial={{ opacity: 0, tracking: '1em' }}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ 
               opacity: 1, 
-              tracking: isScrolled ? '0.4em' : '0.8em',
-              scale: isScrolled ? 0.9 : 1
+              scale: isScrolled ? 0.8 : 1
             }}
             transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="font-serif font-black text-luxury-charcoal transition-all duration-1000 text-2xl md:text-4xl"
+            className="flex items-center"
           >
-            VINGRAZ
-          </motion.span>
+            <img 
+              src="/Logo.jpeg" 
+              alt="VINGRAZ" 
+              className={cn(
+                "transition-all duration-1000 object-contain mix-blend-multiply",
+                isScrolled ? "h-7 md:h-8" : "h-10 md:h-12"
+              )} 
+            />
+          </motion.div>
           <span className={cn(
             "font-black text-luxury-taupe opacity-40 group-hover:opacity-100 transition-all duration-1000 mt-1 uppercase",
             isScrolled ? "text-[5px] tracking-[0.4em]" : "text-[7px] tracking-[0.8em]"
@@ -233,7 +239,7 @@ export default function Navbar() {
               className="fixed top-0 left-0 h-full w-full sm:w-4/5 max-w-sm bg-white z-[70] p-10 md:p-16 flex flex-col shadow-2xl overflow-y-auto custom-scrollbar"
             >
               <div className="flex justify-between items-center mb-16">
-                <span className="text-2xl md:text-3xl font-serif font-black tracking-tighter">VINGRAZ</span>
+                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-8 object-contain mix-blend-multiply" />
                 <button 
                   onClick={() => setIsMenuOpen(false)}
                   className="w-10 h-10 flex items-center justify-center rounded-full border border-luxury-charcoal/5 hover:border-luxury-gold transition-colors"

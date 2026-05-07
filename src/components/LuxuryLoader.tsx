@@ -23,14 +23,13 @@ export default function LuxuryLoader() {
           className="fixed inset-0 z-[10000] bg-white flex flex-col items-center justify-center pointer-events-none"
         >
           <div className="overflow-hidden mb-4">
-             <motion.span 
-               initial={{ y: 100 }}
-               animate={{ y: 0 }}
+             <motion.div 
+               initial={{ y: 100, opacity: 0 }}
+               animate={{ y: 0, opacity: 1 }}
                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-               className="block font-serif text-5xl md:text-7xl font-black tracking-[0.2em] text-luxury-charcoal"
              >
-               VINGRAZ
-             </motion.span>
+                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-16 md:h-20 object-contain mix-blend-multiply" />
+             </motion.div>
           </div>
           
           <div className="h-[1px] w-24 bg-luxury-charcoal/10 relative overflow-hidden">
