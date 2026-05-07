@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Product } from '../types';
 import { formatCurrency, cn } from '../lib/utils';
 import { useCart } from '../contexts/CartContext';
+import { productService } from '../services/productService';
 import QuickViewModal from './QuickViewModal';
 
 interface ProductCardProps {
@@ -18,9 +19,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const isOutOfStock = product.inventoryCount <= 0;
   const currentPrice = product.isOnSale && product.salePrice ? product.salePrice : product.price;
 
+  const handleMouseEnter = () => {
+    productService.getProductById(product.id);
+  };
+
   return (
     <>
       <motion.div
+        onMouseEnter={handleMouseEnter}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}

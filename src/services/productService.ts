@@ -18,6 +18,11 @@ import { Product, Category, Review } from '../types';
 const COLLECTION_NAME = 'products';
 const REVIEWS_COLLECTION = 'reviews';
 
+// Instant Response Cache
+const _productCache: Record<string, Product> = {};
+let _allProductsCache: Product[] | null = null;
+const _categoryCache: Record<string, Product[]> = {};
+
 const MOCK_PRODUCTS: Product[] = [
   {
     id: 'm1',
@@ -229,20 +234,26 @@ export const productService = {
     return all.filter(p => p.subCategory === 'Dresses');
   },
   async getAllProducts(): Promise<Product[]> {
+    if (_allProductsCache) return _allProductsCache;
     try {
       const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
+        _allProductsCache = MOCK_PRODUCTS;
         return MOCK_PRODUCTS;
       }
-      return snapshot.docs.map(d => {
+      const products = snapshot.docs.map(d => {
         const data = d.data();
-        return { 
+        const p = { 
           ...data, 
           id: d.id,
           createdAt: data.createdAt?.toDate?.() ? data.createdAt.toDate().toISOString() : data.createdAt 
         } as Product;
+        _productCache[p.id] = p; // Warm up individual cache
+        return p;
       });
+      _allProductsCache = products;
+      return products;
     } catch (error) {
       handleFirestoreError(error, OperationType.LIST, COLLECTION_NAME);
       return MOCK_PRODUCTS;
@@ -251,20 +262,28 @@ export const productService = {
 
   async getProductsByCategory(category: string): Promise<Product[]> {
     if (category === 'all' || category === 'new') return this.getAllProducts();
+    if (_categoryCache[category]) return _categoryCache[category];
+
     try {
       const q = query(collection(db, COLLECTION_NAME), where('category', '==', category));
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
-        return MOCK_PRODUCTS.filter(p => p.category === category);
+        const mockFiltered = MOCK_PRODUCTS.filter(p => p.category === category);
+        _categoryCache[category] = mockFiltered;
+        return mockFiltered;
       }
-      return snapshot.docs.map(d => {
+      const products = snapshot.docs.map(d => {
         const data = d.data();
-        return { 
+        const p = { 
           ...data, 
           id: d.id,
           createdAt: data.createdAt?.toDate?.() ? data.createdAt.toDate().toISOString() : data.createdAt 
         } as Product;
+        _productCache[p.id] = p; // Warm up individual cache
+        return p;
       });
+      _categoryCache[category] = products;
+      return products;
     } catch (error) {
       handleFirestoreError(error, OperationType.LIST, COLLECTION_NAME);
       return [];
@@ -272,21 +291,31 @@ export const productService = {
   },
 
   async getProductById(id: string): Promise<Product | null> {
+    if (_productCache[id]) return _productCache[id];
+
     try {
       const d = await getDoc(doc(db, COLLECTION_NAME, id));
       if (!d.exists()) {
-        return MOCK_PRODUCTS.find(p => p.id === id) || null;
+        const mock = MOCK_PRODUCTS.find(p => p.id === id) || null;
+        if (mock) _productCache[id] = mock;
+        return mock;
       }
       const data = d.data();
-      return { 
+      const p = { 
         ...data, 
         id: d.id,
         createdAt: data.createdAt?.toDate?.() ? data.createdAt.toDate().toISOString() : data.createdAt 
       } as Product;
+      _productCache[id] = p;
+      return p;
     } catch (error) {
       handleFirestoreError(error, OperationType.GET, `${COLLECTION_NAME}/${id}`);
       return null;
     }
+  },
+
+  getCachedProduct(id: string): Product | null {
+    return _productCache[id] || null;
   },
 
   async seedProducts() {

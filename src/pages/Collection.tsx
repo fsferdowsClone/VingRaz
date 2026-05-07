@@ -19,7 +19,8 @@ export default function Collection() {
 
   useEffect(() => {
     async function load() {
-      setLoading(true);
+      // Don't set loading back to true if we already have some products and it's the same category
+      // (Simplified: just check if data is in cache)
       const data = await productService.getProductsByCategory(id || 'all');
       
       const sorted = sortProducts(data, sortBy);

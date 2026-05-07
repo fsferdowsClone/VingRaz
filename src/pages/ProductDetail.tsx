@@ -14,10 +14,14 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { user, profile } = useAuth();
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
+  
+  // Try to find product in cache for instant sync render
+  const cachedProduct = id ? productService.getCachedProduct(id) : null;
+  
+  const [product, setProduct] = useState<Product | null>(cachedProduct || null);
+  const [loading, setLoading] = useState(!cachedProduct);
+  const [selectedSize, setSelectedSize] = useState(cachedProduct?.sizes[0] || '');
+  const [selectedColor, setSelectedColor] = useState(cachedProduct?.colors[0] || '');
   const [activeImage, setActiveImage] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
@@ -29,21 +33,26 @@ export default function ProductDetail() {
   useEffect(() => {
     async function load() {
       if (!id) return;
+      
+      // Try to get product data immediately if it might be in cache or local
       const data = await productService.getProductById(id);
       if (data) {
         setProduct(data);
         setSelectedSize(data.sizes[0]);
         setSelectedColor(data.colors[0]);
+        setLoading(false); // Set loading false as soon as we have product data
         
-        // Fetch related products
-        const all = await productService.getProductsByCategory(data.category);
-        setRelatedProducts(all.filter(p => p.id !== data.id).slice(0, 4));
+        // Background loading for reviews and related products
+        productService.getProductsByCategory(data.category).then(all => {
+          setRelatedProducts(all.filter(p => p.id !== data.id).slice(0, 4));
+        });
 
-        // Fetch reviews
-        const productReviews = await productService.getProductReviews(id);
-        setReviews(productReviews);
+        productService.getProductReviews(id).then(productReviews => {
+          setReviews(productReviews);
+        });
+      } else {
+        setLoading(false);
       }
-      setLoading(false);
     }
     load();
     window.scrollTo(0, 0);
