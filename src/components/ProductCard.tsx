@@ -29,9 +29,10 @@ export default function ProductCard({ product }: ProductCardProps) {
         onMouseEnter={handleMouseEnter}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
+        whileHover={{ y: -4, boxShadow: "0 20px 40px -20px rgba(0,0,0,0.1)" }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.1 }}
-        className={cn("group relative", isOutOfStock && "opacity-80")}
+        className={cn("group relative bg-white transition-all duration-700", isOutOfStock && "opacity-80")}
       >
         <div className="relative aspect-[3/4] overflow-hidden mb-6 bg-luxury-cream">
           <Link to={`/product/${product.id}`} className="block h-full relative">
@@ -39,7 +40,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               src={product.images[0]}
               alt={product.name}
               className={cn(
-                "w-full h-full object-cover transition-all duration-[1.5s] ease-luxury group-hover:scale-110",
+                "w-full h-full object-cover transition-all duration-[1.5s] ease-luxury group-hover:scale-105",
                 isOutOfStock ? "grayscale" : "group-hover:opacity-0"
               )}
             />
@@ -50,6 +51,9 @@ export default function ProductCard({ product }: ProductCardProps) {
                 className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-luxury"
               />
             )}
+            
+            {/* Soft Overlay on Hover */}
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-700 pointer-events-none" />
           </Link>
           
           {/* Status Badges */}
@@ -76,36 +80,30 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Quick Add Overlay */}
           {!isOutOfStock && (
-            <div className="absolute inset-x-0 bottom-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[0.16,1,0.3,1] z-20 flex flex-col gap-2">
-              <button 
+            <div className="absolute inset-x-0 bottom-0 p-6 z-20 flex flex-col gap-2">
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-white/95 backdrop-blur-md text-luxury-charcoal py-4 text-[9px] uppercase tracking-[0.4em] font-black hover:bg-luxury-gold hover:text-white transition-all duration-700 shadow-xl flex items-center justify-center gap-3 border border-black/5 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 delay-0"
                 onClick={() => setIsQuickViewOpen(true)}
-                className="w-full bg-white/90 backdrop-blur-md text-luxury-charcoal py-4 text-[10px] uppercase tracking-[0.3em] font-black hover:bg-luxury-gold hover:text-white transition-all duration-500 shadow-xl flex items-center justify-center gap-2"
               >
-                <Zap className="w-3 h-3" />
+                <Eye className="w-3.5 h-3.5" />
                 <span>Quick View</span>
-              </button>
-              <button 
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-luxury-charcoal text-white py-4 text-[9px] uppercase tracking-[0.4em] font-black hover:bg-luxury-gold transition-all duration-700 shadow-xl border border-white/10 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 delay-75"
                 onClick={() => addToCart(product, 1, product.sizes[0], product.colors[0])}
-                className="w-full bg-luxury-charcoal text-white py-4 text-[10px] uppercase tracking-[0.3em] font-black hover:bg-luxury-gold transition-all duration-500 shadow-xl"
               >
-                Quick Add — {formatCurrency(currentPrice)}
-              </button>
+                Add — {formatCurrency(currentPrice)}
+              </motion.button>
             </div>
           )}
 
           {isOutOfStock && (
             <div className="absolute inset-0 bg-luxury-charcoal/10 pointer-events-none group-hover:bg-luxury-charcoal/20 transition-colors duration-500" />
           )}
-          
-          <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col gap-2">
-             <button 
-              onClick={() => setIsQuickViewOpen(true)}
-              className="w-10 h-10 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-luxury-charcoal hover:bg-luxury-gold hover:text-white transition-all duration-500 shadow-lg"
-              title="Quick View"
-            >
-              <Eye className="w-4 h-4" />
-            </button>
-          </div>
         </div>
 
         <div className="px-1 overflow-hidden">
