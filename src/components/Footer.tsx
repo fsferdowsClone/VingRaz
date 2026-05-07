@@ -27,7 +27,7 @@ export default function Footer() {
               <img 
                 src="/Logo.jpeg" 
                 alt="VINGRAZ" 
-                className="h-14 object-contain mb-10 invert brightness-0 invert-100 mix-blend-screen" 
+                className="h-20 object-contain mb-10 invert brightness-0 invert-100 mix-blend-screen opacity-90" 
               />
               <div className="space-y-4">
                 <p className="text-[10px] text-white/40 leading-relaxed max-w-xs uppercase tracking-[0.4em] font-black">

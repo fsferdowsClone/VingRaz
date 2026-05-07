@@ -164,8 +164,8 @@ export default function Navbar() {
               src="/Logo.jpeg" 
               alt="VINGRAZ" 
               className={cn(
-                "transition-all duration-1000 object-contain mix-blend-multiply",
-                isScrolled ? "h-7 md:h-8" : "h-10 md:h-12"
+                "transition-all duration-1000 object-contain mix-blend-multiply brightness-110 saturate-[1.2]",
+                isScrolled ? "h-8 md:h-10" : "h-14 md:h-20"
               )} 
             />
           </motion.div>
@@ -239,7 +239,7 @@ export default function Navbar() {
               className="fixed top-0 left-0 h-full w-full sm:w-4/5 max-w-sm bg-white z-[70] p-10 md:p-16 flex flex-col shadow-2xl overflow-y-auto custom-scrollbar"
             >
               <div className="flex justify-between items-center mb-16">
-                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-8 object-contain mix-blend-multiply" />
+                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-10 object-contain mix-blend-multiply brightness-110" />
                 <button 
                   onClick={() => setIsMenuOpen(false)}
                   className="w-10 h-10 flex items-center justify-center rounded-full border border-luxury-charcoal/5 hover:border-luxury-gold transition-colors"

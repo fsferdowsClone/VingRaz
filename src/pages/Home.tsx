@@ -95,7 +95,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section Carousel */}
-      <section className="relative h-[95vh] flex items-center overflow-hidden bg-luxury-charcoal">
+      <section className="relative h-[60vh] sm:h-[80vh] lg:h-[95vh] flex items-center overflow-hidden bg-luxury-charcoal">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentHero}
@@ -136,7 +136,7 @@ export default function Home() {
                 </motion.span>
               </div>
               
-              <h1 className="text-5xl sm:text-7xl md:text-[8vw] lg:text-[10rem] font-serif font-light leading-[0.85] mb-12 tracking-[-0.04em]">
+              <h1 className="text-4xl sm:text-5xl md:text-[6vw] lg:text-[8rem] font-serif font-light leading-[0.9] mb-8 md:mb-12 tracking-[-0.04em]">
                 <div className="text-mask">
                   <motion.div
                     initial={{ y: "100%" }}
@@ -146,7 +146,7 @@ export default function Home() {
                     {heroSlides[currentHero].title.split(' ').slice(0, -1).join(' ')}
                   </motion.div>
                 </div>
-                <div className="text-mask mt-4 sm:mt-12">
+                <div className="text-mask mt-2 sm:mt-8">
                   <motion.div
                     initial={{ y: "100%" }}
                     animate={{ y: 0 }}
@@ -169,7 +169,7 @@ export default function Home() {
                 </motion.p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-8 mt-16 overflow-hidden">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-10 sm:mt-16 overflow-hidden">
                 <motion.div
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -177,7 +177,7 @@ export default function Home() {
                 >
                   <Link
                     to="/collection/all"
-                    className="group relative overflow-hidden bg-white text-luxury-charcoal px-14 py-7 text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-700 ease-luxury hover:text-white"
+                    className="group relative overflow-hidden bg-white text-luxury-charcoal px-8 sm:px-14 py-4 sm:py-7 text-[9px] sm:text-[10px] uppercase tracking-[0.4em] font-black transition-all duration-700 ease-luxury hover:text-white block sm:inline-block text-center"
                   >
                     <span className="relative z-10">THE COLLECTION</span>
                     <div className="absolute inset-0 bg-luxury-gold translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-luxury" />
@@ -191,7 +191,7 @@ export default function Home() {
                 >
                   <Link
                     to="/artisan-story"
-                    className="group flex items-center space-x-6 px-14 py-7 text-[10px] uppercase tracking-[0.4em] font-black border border-white/10 hover:border-white transition-all duration-700 ease-luxury"
+                    className="group flex items-center justify-center sm:justify-start space-x-6 px-8 sm:px-14 py-4 sm:py-7 text-[9px] sm:text-[10px] uppercase tracking-[0.4em] font-black border border-white/10 hover:border-white transition-all duration-700 ease-luxury block sm:inline-block"
                   >
                     <span>OUR ETHOS</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-3 transition-transform duration-700 ease-luxury" />
@@ -428,7 +428,7 @@ export default function Home() {
              <div className="grid grid-cols-2 gap-4">
                <div className="space-y-4">
                  <div className="aspect-[4/5] bg-luxury-cream">
-                   <img src="https://images.unsplash.com/photo-1614975058789-41d4023795b5?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover" />
+                   <img src="/pant-shirt-combo.jpeg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
                  </div>
                  <div className="aspect-square bg-luxury-cream">
                     <img src="https://images.unsplash.com/photo-1550246140-5119ae4790b8?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover" />
@@ -436,7 +436,7 @@ export default function Home() {
                </div>
                <div className="pt-12 space-y-4">
                  <div className="aspect-square bg-luxury-cream">
-                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover" />
+                    <img src="/kurta-panjabi.jpeg" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
                  </div>
                  <div className="aspect-[4/5] bg-luxury-cream">
                     <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop" className="w-full h-full object-cover" />

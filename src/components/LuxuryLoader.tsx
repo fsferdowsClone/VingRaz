@@ -28,7 +28,7 @@ export default function LuxuryLoader() {
                animate={{ y: 0, opacity: 1 }}
                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
              >
-                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-16 md:h-20 object-contain mix-blend-multiply" />
+                <img src="/Logo.jpeg" alt="VINGRAZ" className="h-20 md:h-32 object-contain mix-blend-multiply brightness-110 saturate-[1.2]" />
              </motion.div>
           </div>
           

@@ -52,7 +52,7 @@ export default function ArtisanStory() {
           >
             <div className="aspect-[4/5] overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?q=80&w=2070&auto=format&fit=crop" 
+                src="/pant-shirt-combo.jpeg" 
                 alt="Artisan Process" 
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-110 hover:scale-100"
               />
